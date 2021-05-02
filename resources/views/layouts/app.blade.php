@@ -1,83 +1,108 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="en">
 
-    <!-- CSRF Token -->
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <!-- CoreUI CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/@coreui/coreui/dist/css/coreui.min.css" crossorigin="anonymous">
 </head>
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
+    <main class="c-app c-dark-theme c-no-layout-transition">
+        <div class="c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar-lg-show" id="sidebar">
+            <div class="c-sidebar-brand d-md-down-none">
+                <svg class="c-sidebar-brand-full" width="118" height="46" alt="CoreUI Logo">
+                    <use xlink:href="{{ asset('assets/brand/coreui-pro.svg#full') }}"></use>
+                </svg>
+                <svg class="c-sidebar-brand-minimized" width="46" height="46" alt="CoreUI Logo">
+                    <use xlink:href="assets/brand/coreui-pro.svg#signet"></use>
+                </svg>
             </div>
-        </nav>
-
-        <main class="py-4">
-            @yield('content')
-        </main>
-    </div>
+            <ul class="c-sidebar-nav">
+                <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="index.html">
+                        <svg class="c-sidebar-nav-icon">
+                            <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-speedometer') }}"></use>
+                        </svg> Dashboard<span class="badge badge-info">NEW</span></a></li>
+                <li class="c-sidebar-nav-title">Components</li>
+                <li class="c-sidebar-nav-dropdown"><a class="c-sidebar-nav-dropdown-toggle" href="#">
+                        <svg class="c-sidebar-nav-icon">
+                            <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-puzzle"></use>
+                        </svg> Base</a>
+                    <ul class="c-sidebar-nav-dropdown-items">
+                        <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="base/breadcrumb.html">
+                                Breadcrumb</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="c-wrapper">
+            <header class="c-header c-header-light c-header-fixed">
+                <button class="c-header-toggler c-class-toggler d-lg-none mfe-auto" type="button" data-target="#sidebar"
+                    data-class="c-sidebar-show">
+                    <svg class="c-icon c-icon-lg">
+                        <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-menu"></use>
+                    </svg>
+                </button><a class="c-header-brand d-lg-none c-header-brand-sm-up-center" href="#">
+                    <svg width="118" height="46" alt="CoreUI Logo">
+                        <use xlink:href="assets/brand/coreui-pro.svg#full"></use>
+                    </svg></a>
+                <button class="c-header-toggler c-class-toggler mfs-3 d-md-down-none" type="button"
+                    data-target="#sidebar" data-class="c-sidebar-lg-show" responsive="true">
+                    <svg class="c-icon c-icon-lg">
+                        <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-menu"></use>
+                    </svg>
+                </button>
+                <ul class="c-header-nav mfs-auto">
+                    <li class="c-header-nav-item dropdown"><a class="c-header-nav-link" data-toggle="dropdown" href="#"
+                            role="button" aria-haspopup="true" aria-expanded="false">
+                            <div class="c-avatar"><img class="c-avatar-img" src="assets/img/avatars/6.jpg"
+                                    alt="user@email.com"></div>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right pt-0">
+                            <div class="dropdown-header bg-light py-2"><strong>Account</strong></div><a
+                                class="dropdown-item" href="#">
+                                <svg class="c-icon mfe-2">
+                                    <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-user"></use>
+                                </svg> Profile</a><a class="dropdown-item" href="#">
+                                <svg class="c-icon mfe-2">
+                                    <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-settings"></use>
+                                </svg> Settings</a><a class="dropdown-item" href="#">
+                                <svg class="c-icon mfe-2">
+                                    <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-credit-card"></use>
+                                </svg> Payments<span class="badge badge-secondary mfs-auto">42</span></a><a
+                                class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                              document.getElementById('logout-form').submit();">
+                                <svg class=" c-icon mfe-2">
+                                    <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-account-logout"></use>
+                                </svg>{{ __('Logout') }}
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </a>
+                        </div>
+                    </li>
+                    <button class="c-header-toggler c-class-toggler mfe-md-3" type="button" data-target="#aside"
+                        data-class="c-sidebar-show">
+                        <svg class="c-icon c-icon-lg">
+                            <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-applications-settings"></use>
+                        </svg>
+                    </button>
+                </ul>
+            </header>
+            <div class="c-body">
+                <main class="c-main">
+                    @yield('content')
+                </main>
+            </div>
+            <!-- Optional JavaScript -->
+            <!-- Popper.js first, then CoreUI JS -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.5.0/perfect-scrollbar.min.js"
+                integrity="sha512-yUNtg0k40IvRQNR20bJ4oH6QeQ/mgs9Lsa6V+3qxTj58u2r+JiAYOhOW0o+ijuMmqCtCEg7LZRA+T4t84/ayVA=="
+                crossorigin="anonymous"></script>
+            <script src="https://unpkg.com/@popperjs/core@2"></script>
+            <script src="https://unpkg.com/@coreui/coreui/dist/js/coreui.min.js"></script>
 </body>
 </html>
