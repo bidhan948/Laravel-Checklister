@@ -12,10 +12,12 @@
                 <svg class="c-sidebar-nav-icon">
                     <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-speedometer') }}"></use>
                 </svg> Dashboard<span class="badge badge-info">{{ Auth::user()->name }}</span></a></li>
-        <li class="c-sidebar-nav-title">Admin</li>
-        <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="{{ route('admin.pages.index') }}">
-                <svg class="c-sidebar-nav-icon">
-                    <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-puzzle') }}"></use>
-                </svg> Pages</a></li>
+        @if (auth()->user()->is_admin)
+            <li class="c-sidebar-nav-title">Admin</li>
+            <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="{{ route('admin.pages.index') }}">
+                    <svg class="c-sidebar-nav-icon">
+                        <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-puzzle') }}"></use>
+                    </svg> Pages</a></li>
+        @endif
     </ul>
 </div>
