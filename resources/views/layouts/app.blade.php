@@ -33,25 +33,25 @@
                 <ul class="c-header-nav mfs-auto">
                     <li class="c-header-nav-item dropdown mx-3"><a class="c-header-nav-link" data-toggle="dropdown" href="#"
                             role="button" aria-haspopup="true" aria-expanded="false">
-                            <div class="c-avatar"><img class="c-avatar-img" src="assets/img/avatars/FOFH8654.jpg"
+                            <div class="c-avatar"><img class="c-avatar-img" src="{{asset('assets/img/avatars/FOFH8654.jpg')}}"
                                     alt="user@email.com"></div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right pt-0">
                             <div class="dropdown-header bg-light py-2"><strong>Account</strong></div><a
                                 class="dropdown-item" href="#">
                                 <svg class="c-icon mfe-2">
-                                    <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-user"></use>
+                                    <use xlink:href="{{asset('vendors/@coreui/icons/svg/free.svg#cil-user')}}"></use>
                                 </svg> Profile</a><a class="dropdown-item" href="#">
                                 <svg class="c-icon mfe-2">
-                                    <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-settings"></use>
+                                    <use xlink:href="{{asset('vendors/@coreui/icons/svg/free.svg#cil-settings')}}"></use>
                                 </svg> Settings</a><a class="dropdown-item" href="#">
                                 <svg class="c-icon mfe-2">
-                                    <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-credit-card"></use>
+                                    <use xlink:href="{{asset('vendors/@coreui/icons/svg/free.svg#cil-credit-card')}}"></use>
                                 </svg> Payments<span class="badge badge-secondary mfs-auto">42</span></a><a
                                 class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                               document.getElementById('logout-form').submit();">
                                 <svg class=" c-icon mfe-2">
-                                    <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-account-logout"></use>
+                                    <use xlink:href="{{asset('vendors/@coreui/icons/svg/free.svg#cil-account-logout')}}"></use>
                                 </svg>{{ __('Logout') }}
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf

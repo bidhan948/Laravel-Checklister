@@ -8,7 +8,7 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
     <!-- CoreUI CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/@coreui/coreui/dist/css/coreui.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{asset('Coreui/Style.css')}}">
 </head>
 
 <body class="c-app flex-row align-items-center">
@@ -27,9 +27,9 @@
     </div>
     <!-- Optional JavaScript -->
     <!-- Popper.js first, then CoreUI JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.5.0/perfect-scrollbar.min.js" integrity="sha512-yUNtg0k40IvRQNR20bJ4oH6QeQ/mgs9Lsa6V+3qxTj58u2r+JiAYOhOW0o+ijuMmqCtCEg7LZRA+T4t84/ayVA==" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/@popperjs/core@2"></script>
-    <script src="https://unpkg.com/@coreui/coreui/dist/js/coreui.min.js"></script>
+    <script src="{{asset('Core-js/scrollbar.js')}}"></script>
+    <script src="{{asset('Core-js/popper.js')}}"></script>
+    <script src="{{asset('Core-js/dist.js')}}"></script>
 </body>
 
 </html>
