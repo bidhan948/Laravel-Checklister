@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\storeChecklistRequest;
+use App\Models\checklistGroup;
+use App\Models\checklist;
 use Illuminate\Http\Request;
 
 class checklistController extends Controller
@@ -22,20 +25,22 @@ class checklistController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(checklistGroup $checklistGroup)
     {
-        //
+        return view('Admin.checklists.create',compact('checklistGroup'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  storeChecklistRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(storeChecklistRequest $request, checklistGroup $checklistGroup)
     {
-        //
+        $checklistGroup->checklists()->create($request->validated());
+        session()->flash('msg','Checklist has been successfully added');
+        return redirect()->route('home');
     }
 
     /**
@@ -55,9 +60,9 @@ class checklistController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
+    public function edit(checklistGroup $checklistGroup, checklist $checklist)
+    { 
+        return view('Admin.checklists.edit',compact('checklistGroup','checklist'));
     }
 
     /**
@@ -67,9 +72,11 @@ class checklistController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(storeChecklistRequest $request,checklistGroup $checklistGroup, checklist $checklist)
     {
-        //
+        $checklist->update($request->validated());
+        session()->flash('msg','Checklist has been successfully edited');
+        return redirect()->route('home');
     }
 
     /**
@@ -78,8 +85,10 @@ class checklistController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(checklistGroup $checklistGroup, checklist $checklist)
     {
-        //
+        session()->flash('msg', $checklistGroup->name .' has beem successfully deleted');
+        $checklist->delete();
+        return redirect()->route('home');
     }
 }

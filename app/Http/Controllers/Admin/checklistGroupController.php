@@ -9,16 +9,6 @@ use App\Models\checklistGroup;
 class checklistGroupController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -38,17 +28,6 @@ class checklistGroupController extends Controller
     {
         checklistGroup::create($request->validated());
         return redirect()->route('home');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**
