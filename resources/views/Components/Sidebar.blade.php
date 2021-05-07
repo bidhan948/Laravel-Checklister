@@ -18,7 +18,7 @@
         <li class="c-sidebar-nav-dropdown c-show">
             <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="{{ route('admin.checklist_groups.edit',$group->id) }}">
                 <svg class="c-sidebar-nav-icon">
-                    <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-puzzle"></use>
+                    <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-puzzle')}}"></use>
                 </svg> {{ $group->name }}</a>
             <ul class="c-sidebar-nav-dropdown-items">
                 @foreach ($group->checklists as $checklist)

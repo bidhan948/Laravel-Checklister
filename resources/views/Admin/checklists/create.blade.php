@@ -12,7 +12,7 @@
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label class="form-col-form-label" for="inputSuccess1">{{__('Name')}}</label>
-                                        <input class="form-control @error('name') is-invalid @enderror" id="inputSuccess1" type="text" name="name">
+                                        <input class="form-control @error('name') is-invalid @enderror" id="inputSuccess1" type="text" name="name" value="{{old('name')}}">
                                         @error('name')
                                            <p class="p-1 text-danger"> {{$message}}</p>
                                         @enderror
