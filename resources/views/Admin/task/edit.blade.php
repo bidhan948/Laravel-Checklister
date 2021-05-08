@@ -1,4 +1,9 @@
 @extends('layouts.app')
+@section('ckEditor')
+    <script>
+        CKEDITOR.replace('task_desc');
+    </script>
+@endsection
 @section('content')
 <div class="container">
     <div class="row d-flex justify-content-center">
@@ -19,8 +24,8 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-col-form-label" for="inputSuccess">{{ __('Task Description') }}</label>
-                                    <textarea class="form-control @error('desc') is-invalid @enderror" id="inputSuccess" name="desc">{{$task->desc}}</textarea>
+                                    <label class="form-col-form-label" for="task_desc">{{ __('Task Description') }}</label>
+                                    <textarea class="form-control @error('desc') is-invalid @enderror" name="desc" id="task_desc">{{$task->desc}}</textarea>
                                     @error('desc')
                                     <p class="p-1 text-danger"> {{ $message }}</p>
                                     @enderror

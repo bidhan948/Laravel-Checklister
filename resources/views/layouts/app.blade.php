@@ -71,5 +71,7 @@
             <script src="{{asset('Core-js/scrollbar.js')}}"></script>
             <script src="{{asset('Core-js/popper.js')}}"></script>
             <script src="{{asset('Core-js/dist.js')}}"></script>
+            <script src="{{asset('Ckeditor/ckeditor.js')}}"></script>
+            @yield('ckEditor')
 </body>
 </html>
