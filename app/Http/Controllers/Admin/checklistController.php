@@ -6,67 +6,38 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\storeChecklistRequest;
 use App\Models\checklistGroup;
 use App\Models\checklist;
-use Illuminate\Http\Request;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class checklistController extends Controller
 {
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(checklistGroup $checklistGroup)
+    public function create(checklistGroup $checklistGroup): View
     {
-        return view('Admin.checklists.create',compact('checklistGroup'));
+        return view('Admin.checklists.create', compact('checklistGroup'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  storeChecklistRequest $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(storeChecklistRequest $request, checklistGroup $checklistGroup)
+    public function store(storeChecklistRequest $request, checklistGroup $checklistGroup): RedirectResponse
     {
         $checklistGroup->checklists()->create($request->validated());
-        session()->flash('msg','Checklist has been successfully added');
+        session()->flash('msg', 'Checklist has been successfully added');
         return redirect()->route('home');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(checklistGroup $checklistGroup, checklist $checklist)
-    { 
-        return view('Admin.checklists.edit',compact('checklistGroup','checklist'));
+    public function edit(checklistGroup $checklistGroup, checklist $checklist): View
+    {
+        return view('Admin.checklists.edit', compact('checklistGroup', 'checklist'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(storeChecklistRequest $request,checklistGroup $checklistGroup, checklist $checklist)
+    public function update(storeChecklistRequest $request, checklistGroup $checklistGroup, checklist $checklist): RedirectResponse
     {
         $checklist->update($request->validated());
-        session()->flash('msg','Checklist has been successfully edited');
+        session()->flash('msg', 'Checklist has been successfully edited');
         return redirect()->route('home');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(checklistGroup $checklistGroup, checklist $checklist)
+    public function destroy(checklistGroup $checklistGroup, checklist $checklist): RedirectResponse
     {
-        session()->flash('msg', $checklistGroup->name .' has beem successfully deleted');
+        session()->flash('msg', $checklistGroup->name . ' has beem successfully deleted');
         $checklist->delete();
         return redirect()->route('home');
     }

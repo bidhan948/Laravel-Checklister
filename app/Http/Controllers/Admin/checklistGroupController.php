@@ -5,63 +5,35 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\checklistGroupStoreRequest;
 use App\Models\checklistGroup;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class checklistGroupController extends Controller
 {
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function create():View
     {
         return view('Admin.checklist_groups.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(checklistGroupStoreRequest  $request)
+    public function store(checklistGroupStoreRequest  $request):RedirectResponse
     {
         checklistGroup::create($request->validated());
         return redirect()->route('home');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  checklistGroup $checklistGroup
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(checklistGroup $checklistGroup)
+    public function edit(checklistGroup $checklistGroup): View
     {
         return view('Admin.checklist_groups.edit',compact('checklistGroup'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  App\Http\Requests\checklistGroupStoreRequest $request
-     * @param  checklistGroup $checklistGroup
-     * @return \Illuminate\Http\Response
-     */
-    public function update(checklistGroupStoreRequest $request, checklistGroup $checklistGroup)
+    public function update(checklistGroupStoreRequest $request, checklistGroup $checklistGroup):RedirectResponse
     {
         $checklistGroup->update($request->validated());
         session()->flash('msg','Checklist group has been successfully edited');
         return redirect()->route('home');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  checklistGroup $checklistGroup
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(checklistGroup $checklistGroup)
+    public function destroy(checklistGroup $checklistGroup):RedirectResponse
     {
         session()->flash('msg', $checklistGroup->name .' has beem successfully deleted');
         $checklistGroup->delete();
