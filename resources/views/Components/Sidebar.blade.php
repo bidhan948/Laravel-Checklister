@@ -8,7 +8,7 @@
         </svg>
     </div>
     <ul class="c-sidebar-nav">
-        <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="{{ route('home') }}">
+        <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="{{ route('welcome') }}">
                 <svg class="c-sidebar-nav-icon">
                     <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-speedometer') }}"></use>
                 </svg> {{ __('Daashboard') }}<span class="badge badge-info">{{ Auth::user()->name }}</span></a></li>

@@ -19,7 +19,7 @@ class checklistGroupController extends Controller
     public function store(checklistGroupStoreRequest  $request):RedirectResponse
     {
         checklistGroup::create($request->validated());
-        return redirect()->route('home');
+        return redirect()->route('welcome');
     }
 
     public function edit(checklistGroup $checklistGroup): View
@@ -31,13 +31,13 @@ class checklistGroupController extends Controller
     {
         $checklistGroup->update($request->validated());
         session()->flash('msg','Checklist group has been successfully edited');
-        return redirect()->route('home');
+        return redirect()->route('welcome');
     }
 
     public function destroy(checklistGroup $checklistGroup):RedirectResponse
     {
         session()->flash('msg', $checklistGroup->name .' has beem successfully deleted');
         $checklistGroup->delete();
-        return redirect()->route('home');
+        return redirect()->route('welcome');
     }
 }
