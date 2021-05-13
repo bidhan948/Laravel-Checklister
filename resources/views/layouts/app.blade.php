@@ -7,8 +7,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
+    @livewireStyles
     <!-- CoreUI CSS -->
     <link rel="stylesheet" href="{{ asset('Coreui/Style.css') }}">
+
 </head>
 
 <body>
@@ -99,6 +101,9 @@
             <script src="{{ asset('Core-js/dist.js') }}"></script>
             <script src="{{ asset('Ckeditor/ckeditor.js') }}"></script>
             @yield('ckEditor')
+        @livewireScripts
+            <!------------ livewire sortable cdn ----------->
+    <script src="{{ asset('js/livewire_sortable.js') }}"></script>
 </body>
 
 </html>
