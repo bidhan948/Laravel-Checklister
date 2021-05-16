@@ -52,9 +52,25 @@
                 <a class="c-sidebar-nav-link" href="{{ route('admin.users.index') }}">
                     <svg class="c-sidebar-nav-icon">
                         <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-user') }}"></use>
-                    </svg>{{__('Users Data')}}
+                    </svg>{{ __('Users Data') }}
                 </a>
             </li>
+        @else
+            @foreach (\App\Models\checklistGroup::with(['checklists'=>function($query){$query->whereNull('user_id');}])->get() as $group)
+                <li class="c-sidebar-nav-item c-sidebar-nav-dropdown c-show">
+                <li class="c-sidebar-nav-title text-center" style="margin-top: -3px;">{{ $group->name }}
+                </li>
+                @foreach ($group->checklists as $checklist)
+                    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="{{ route('users.checklist.show',$checklist) }}">
+                            <svg class="c-sidebar-nav-icon">
+                                <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-list') }}">
+                                </use>
+                            </svg> {{$checklist->name}}<span
+                                class="badge badge-info">{{__('...')}}</span></a></li>
+                @endforeach
+                </li>
+                {{-- @dd($group->checklists) --}}
+            @endforeach
         @endif
     </ul>
 </div>
