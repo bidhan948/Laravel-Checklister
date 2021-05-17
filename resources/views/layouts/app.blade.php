@@ -35,10 +35,10 @@
                 </button>
                 <ul class="c-header-nav mfs-auto">
                     <li class="c-header-nav-item">
-                        <a href="{{route('consultation')}}" class="c-header-nav-link">{{__('Get Consultation')}}</a>
+                        <a href="{{ route('consultation') }}" class="c-header-nav-link">{{ __('Get Consultation') }}</a>
                     </li>
                     <li class="c-header-nav-item d-md-down-none mx-2">
-                        <a href="{{route('welcome')}}" class="c-header-nav-link">
+                        <a href="{{ route('welcome') }}" class="c-header-nav-link">
                             <svg class="c-icon">
                                 <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-home') }}">
                                 </use>
@@ -47,45 +47,46 @@
                     </li>
                     <li class="c-header-nav-item dropdown mx-3"><a class="c-header-nav-link" data-toggle="dropdown"
                             href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                    <div class="c-avatar">
-                        @if (auth()->user()->is_admin)
-                            <img class="c-avatar-img" src="{{ asset('assets/img/avatars/FOFH8654.jpg') }}"
-                                alt="user@email.com">
-                        @else
-                        <svg class="c-sidebar-nav-icon">
-                            <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-user') }}">
-                            </use>
-                        </svg>
-                        @endif
-                    </div>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right pt-0">
-                        <div class="dropdown-header bg-light py-2"><strong>Account</strong></div><a
-                            class="dropdown-item" href="#">
-                            <svg class="c-icon mfe-2">
-                                <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-user') }}">
-                                </use>
-                            </svg> Profile</a><a class="dropdown-item" href="#">
-                            <svg class="c-icon mfe-2">
-                                <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-settings') }}">
-                                </use>
-                            </svg> Settings</a><a class="dropdown-item" href="#">
-                            <svg class="c-icon mfe-2">
-                                <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-credit-card') }}">
-                                </use>
-                            </svg> Payments<span class="badge badge-secondary mfs-auto">42</span></a><a
-                            class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                              document.getElementById('logout-form').submit();">
-                            <svg class=" c-icon mfe-2">
-                                <use
-                                    xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-account-logout') }}">
-                                </use>
-                            </svg>{{ __('Logout') }}
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
+                            <div class="c-avatar">
+                                @if (auth()->user()->is_admin)
+                                    <img class="c-avatar-img" src="{{ asset('assets/img/avatars/FOFH8654.jpg') }}"
+                                        alt="user@email.com">
+                                @else
+                                    <svg class="c-sidebar-nav-icon">
+                                        <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-user') }}">
+                                        </use>
+                                    </svg>
+                                @endif
+                            </div>
                         </a>
-                    </div>
+                        <div class="dropdown-menu dropdown-menu-right pt-0">
+                            <div class="dropdown-header bg-light py-2"><strong>Account</strong></div><a
+                                class="dropdown-item" href="#">
+                                <svg class="c-icon mfe-2">
+                                    <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-user') }}">
+                                    </use>
+                                </svg> Profile</a><a class="dropdown-item" href="#">
+                                <svg class="c-icon mfe-2">
+                                    <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-settings') }}">
+                                    </use>
+                                </svg> Settings</a><a class="dropdown-item" href="#">
+                                <svg class="c-icon mfe-2">
+                                    <use
+                                        xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-credit-card') }}">
+                                    </use>
+                                </svg> Payments<span class="badge badge-secondary mfs-auto">42</span></a><a
+                                class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                              document.getElementById('logout-form').submit();">
+                                <svg class=" c-icon mfe-2">
+                                    <use
+                                        xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-account-logout') }}">
+                                    </use>
+                                </svg>{{ __('Logout') }}
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </a>
+                        </div>
                     </li>
                 </ul>
             </header>
@@ -96,14 +97,17 @@
             </div>
             <!-- Optional JavaScript -->
             <!-- Popper.js first, then CoreUI JS -->
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+                integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
             <script src="{{ asset('Core-js/scrollbar.js') }}"></script>
             <script src="{{ asset('Core-js/popper.js') }}"></script>
             <script src="{{ asset('Core-js/dist.js') }}"></script>
             <script src="{{ asset('Ckeditor/ckeditor.js') }}"></script>
             @yield('ckEditor')
-        @livewireScripts
+            @livewireScripts
+            @yield('jquery_toggle')
             <!------------ livewire sortable cdn ----------->
-    <script src="{{ asset('js/livewire_sortable.js') }}"></script>
+            <script src="{{ asset('js/livewire_sortable.js') }}"></script>
 </body>
 
 </html>
