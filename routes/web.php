@@ -7,7 +7,7 @@ Route::redirect('/', 'welcome');
 
 Auth::routes();
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth','save_last_action']], function () {
     Route::get('/welcome', [App\Http\Controllers\pageController::class, 'welcome'])->name(('welcome'));
     Route::get('/consultation', [App\Http\Controllers\pageController::class, 'consultation'])->name(('consultation'));
     Route::get('checklist/{checklist}', [App\Http\Controllers\User\checklistController::class, 'show'])->name(('users.checklist.show'));
