@@ -14,12 +14,7 @@
                 </svg> {{ __('Dashboard') }}<span class="badge badge-info">{{ Auth::user()->name }}</span></a></li>
         @if (auth()->user()->is_admin)
             <li class="c-sidebar-nav-title">{{ __('Manage Checklist') }}</li>
-            @foreach (\App\Models\checklistGroup::with([
-        'checklists' => function ($query) {
-            $query->whereNull('user_id');
-        },
-    ])->get()
-    as $group)
+            @foreach ($admin_menu as $group)
                 <li class="c-sidebar-nav-dropdown c-show">
                 <li class="c-sidebar-nav-item c-sidebar-nav-dropdown c-show">
                     <a class="c-sidebar-nav-link" href="{{ route('admin.checklist_groups.edit', $group->id) }}">
