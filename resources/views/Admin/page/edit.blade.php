@@ -1,7 +1,14 @@
 @extends('layouts.app')
 @section('ckEditor')
+@include('Components.ckeditor')
     <script>
-        CKEDITOR.replace('page_desc');
+        ClassicEditor
+            .create(document.querySelector('#page_desc'), {
+                extraPlugins: [SimpleUploadAdapterPlugin],
+            })
+            .catch(error => {
+                console.error(error);
+            });
 
     </script>
 @endsection

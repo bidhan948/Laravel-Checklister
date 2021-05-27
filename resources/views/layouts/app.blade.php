@@ -102,7 +102,8 @@
             <script src="{{ asset('Core-js/scrollbar.js') }}"></script>
             <script src="{{ asset('Core-js/popper.js') }}"></script>
             <script src="{{ asset('Core-js/dist.js') }}"></script>
-            <script src="{{ asset('Ckeditor/ckeditor.js') }}"></script>
+            <!-- <script src="https://cdn.ckeditor.com/ckeditor5/27.1.0/classic/ckeditor.js"></script> -->
+            <!-- <script src="{{ asset('Ckeditor/ckeditor.js') }}"></script> -->
             @yield('ckEditor')
             @livewireScripts
             @yield('jquery_toggle')

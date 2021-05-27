@@ -1,7 +1,14 @@
 @extends('layouts.app')
 @section('ckEditor')
+    @include('Components.ckeditor')
     <script>
-        CKEDITOR.replace('task_desc');
+        ClassicEditor
+            .create(document.querySelector('#task_desc'), {
+                extraPlugins: [SimpleUploadAdapterPlugin],
+            })
+            .catch(error => {
+                console.error(error);
+            });
     </script>
 @endsection
 @section('content')
@@ -67,10 +74,10 @@
                                             <p class="p-1 text-danger"> {{ $message }}</p>
                                         @enderror
                                     </div>
-                                    <div class="form-group" >
+                                    <div class="form-group">
                                         <label for="description">{{ __('Description') }}</label>
-                                        <textarea class="form-control" name="desc"id="task_desc"
-                                            >{{ old('desc') }}</textarea>
+                                        <textarea class="form-control" name="desc"
+                                            id="task_desc">{{ old('desc') }}</textarea>
                                         @error('desc')
                                             <p class="p-1 text-danger"> {{ $message }}</p>
                                         @enderror

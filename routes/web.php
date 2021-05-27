@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ImageController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -18,5 +19,6 @@ Route::group(['middleware' => ['auth','save_last_action']], function () {
         Route::resource('checklist_groups', App\Http\Controllers\Admin\checklistGroupController::class);
         Route::resource('checklists.tasks', App\Http\Controllers\Admin\TaskController::class);
         Route::get('User', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('users.index');
+        Route::POST('images',[ImageController::class,'store'])->name('images.store');
     });
 });
