@@ -1,4 +1,4 @@
-<table class="table table-responsive-sm" wire:sortable="updateTaskOrder">
+<table class="table table-responsive-sm">
     <thead>
         <tr>
             <th class="text-center">Task name</th>
@@ -7,7 +7,15 @@
     </thead>
     <tbody>
         @foreach ($tasks as $task)
-            <tr wire:sortable.item="{{ $task->id }}" wire:key="task-{{ $task->id }}">
+            <tr>
+                <td>
+                    @if ($task->position > $tasks->min('position'))
+                        <a wire:click.prevent="taskUp({{$task->id}})" href="#" style="text-decoration: none; font-size:1.2rem; color:black; font-weight: bolder;">&uarr;</a>
+                    @endif
+                    @if ($task->position < $tasks->max('position'))
+                     <a wire:click.prevent="taskDown({{$task->id}})" href="#" style="text-decoration: none; font-size:1.2rem; color:black; font-weight: bolder;">&darr;</a>    
+                    @endif
+                </td>
                 <td class="text-center">{{ $task->name }}</td>
                 <td class="text-center"><a href="{{ route('admin.checklists.tasks.edit', [$checklist, $task]) }}"
                         class="btn btn-success">Edit</a></td>
