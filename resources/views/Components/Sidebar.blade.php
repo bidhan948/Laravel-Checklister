@@ -58,7 +58,13 @@
         @else
             @foreach ($menu as $group)
                 <li class="c-sidebar-nav-item c-sidebar-nav-dropdown c-show">
-                <li class="c-sidebar-nav-title text-center" style="margin-top: -3px;">{{ $group['name'] }}
+                <li class="c-sidebar-nav-title text-center" style="margin-top: 0px; margin-bottom:-14px;">
+                    <div class="d-flex justify-content-center">
+                        <svg class="c-sidebar-nav-icon">
+                        <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-sort-descending') }}">
+                        </use>
+                        </svg><p style="padding-right:35px;">{{ $group['name'] }}</p>
+                    </div>
                     @if ($group['is_new'])
                         <span class="mx-2 badge badge-info">
                             {{ __('New') }}

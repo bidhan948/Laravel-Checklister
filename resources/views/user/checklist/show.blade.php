@@ -2,43 +2,7 @@
 @section('content')
     <div class="container">
         <div class="row d-flex justify-content-center">
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-header">
-                                {{ $checklist->name }}
-                                <div class="card-body">
-                                    <table class="table">
-                                        @foreach ($checklist->tasks as $task)
-                                            <tr class="task-description-toggle  text-center" data-id="{{ $task->id }}">
-                                                <td></td>
-                                                <td>{{ $task->name }}</td>
-                                                <td>
-                                                    <svg class="c-sidebar-nav-icon " id="icon-up-{{ $task->id }}">
-                                                        <use
-                                                            xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-caret-top') }}">
-                                                        </use>
-                                                    </svg>
-                                                    <svg class="c-sidebar-nav-icon d-none" id="icon-down-{{ $task->id }}">
-                                                        <use
-                                                            xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-caret-bottom') }}">
-                                                        </use>
-                                                    </svg>
-                                                </td>
-                                            </tr>
-                                            <tr class="d-none" id="task-description-{{ $task->id }}">
-                                                <td></td>
-                                                <td colspan="2">{!! $task->desc !!}</td>
-                                            </tr>
-                                        @endforeach
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @livewire('checklist-show', ['checklist' => $checklist])
         </div>
     </div>
 @endsection
