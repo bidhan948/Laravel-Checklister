@@ -61,9 +61,10 @@
                 <li class="c-sidebar-nav-title text-center" style="margin-top: 0px; margin-bottom:-14px;">
                     <div class="d-flex justify-content-center">
                         <svg class="c-sidebar-nav-icon">
-                        <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-sort-descending') }}">
-                        </use>
-                        </svg><p style="padding-right:35px;">{{ $group['name'] }}</p>
+                            <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-sort-descending') }}">
+                            </use>
+                        </svg>
+                        <p style="padding-right:35px;">{{ $group['name'] }}</p>
                     </div>
                     @if ($group['is_new'])
                         <span class="mx-2 badge badge-info">
@@ -82,6 +83,12 @@
                                 <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-list') }}">
                                 </use>
                             </svg> {{ $checklist['name'] }}
+                            
+                            @livewire('completed-task-count',
+                            ['completed_task_count'=>count($checklist['user_tasks']),
+                             'tasks_count'=>count($checklist['tasks']),
+                             'checklistId'=>$checklist['id']
+                            ])
                             @if ($checklist['is_new'])
                                 <span class="mx-2 badge badge-info">
                                     {{ __('New') }}

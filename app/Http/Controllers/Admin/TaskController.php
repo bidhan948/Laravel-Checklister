@@ -13,7 +13,7 @@ class TaskController extends Controller
 {
     public function store(storeTaskRequest $request, checklist $checklist): RedirectResponse
     {
-        $position = $checklist->tasks()->max('position') + 1;
+        $position = $checklist->tasks()->whereNull('user_id')->max('position') + 1;
         $checklist->tasks()->create($request->validated() + ['position' => $position]);
         session()->flash('msg', 'Task has been added');
         return redirect()->route('welcome');
@@ -33,7 +33,7 @@ class TaskController extends Controller
 
     public function destroy(checklist $checklist, Task $task): RedirectResponse
     {
-        $checklist->tasks()->where('position', '>', $task->position)->update(['position' => \DB::raw('position - 1')]);
+        $checklist->tasks()->whereNull('user_id')->where('position', '>', $task->position)->update(['position' => \DB::raw('position - 1')]);
         session()->flash('msg', $task->name . ' has been successfully deleted');
         $task->delete();
         return redirect()->route('admin.checklist_groups.checklists.edit', [$checklist->checklist_group_id, $checklist]);
