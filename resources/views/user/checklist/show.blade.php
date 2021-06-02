@@ -2,6 +2,7 @@
 @section('content')
     <div class="container">
         <div class="row d-flex justify-content-center">
+            @livewire('header-total-counts',['checklist_group_id'=> $checklist->checklist_group_id])
             @livewire('checklist-show', ['checklist' => $checklist])
         </div>
     </div>
