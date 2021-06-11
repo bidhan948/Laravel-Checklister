@@ -8,13 +8,13 @@
                         <table class="table">
                             @foreach ($checklist->tasks->where('user_id',NULL) as $task)
                                 <tr>
-                                    <td><input type="radio" wire:click="completeTask({{$task->id}})"
+                                    <td><input type="checkbox" wire:click="completeTask({{$task->id}})"
                                         @if (in_array($task->id,$completed_task))
                                            checked="checked" 
                                         @endif
                                         /></td>
-                                    <td wire:click="toggle_task({{$task->id}})">
-                                        {{ $task->name }}</td>
+                                    <td>
+                                        <a href="#" wire:click.prevent="toggle_task({{$task->id}})">{{ $task->name }}</a></td>
                                     <td wire:click="toggle_task({{$task->id}})">
                                         @if (in_array($task->id, $opened_tasks))
                                             <svg class="c-sidebar-nav-icon " id="icon-up-{{ $task->id }}">
