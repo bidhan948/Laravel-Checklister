@@ -12,6 +12,18 @@
                 <svg class="c-sidebar-nav-icon">
                     <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-speedometer') }}"></use>
                 </svg> {{ __('Dashboard') }}<span class="badge badge-info">{{ Auth::user()->name }}</span></a></li>
+        @if (!auth()->user()->is_admin)
+            @foreach ($user_task_menu as $key => $user_task_menu)
+                <li class="c-sidebar-nav-item c-sidebar-nav-dropdown c-show">
+                    <a class="c-sidebar-nav-link" href="{{ route('welcome') }}">
+                        <svg class="c-sidebar-nav-icon">
+                            <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-'.$user_task_menu['icon']) }}"></use>
+                        </svg> {{$user_task_menu['name']}}
+                        @livewire('user-task-counter', ['task_type'=>$key,'task_count'=>$user_task_menu['tasks_count']])
+                    </a>
+                </li>
+            @endforeach
+        @endif
         @if (auth()->user()->is_admin)
             <li class="c-sidebar-nav-title">{{ __('Manage Checklist') }}</li>
             @foreach ($admin_menu as $group)
@@ -19,7 +31,8 @@
                 <li class="c-sidebar-nav-item c-sidebar-nav-dropdown c-show">
                     <a class="c-sidebar-nav-link" href="{{ route('admin.checklist_groups.edit', $group->id) }}">
                         <svg class="c-sidebar-nav-icon">
-                            <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-folder-open') }}"></use>
+                            <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-folder-open') }}">
+                            </use>
                         </svg> {{ $group->name }}
                     </a>
                     <ul class="c-sidebar-nav-dropdown-items">
@@ -83,11 +96,11 @@
                                 <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-list') }}">
                                 </use>
                             </svg> {{ $checklist['name'] }}
-                            
+
                             @livewire('completed-task-count',
-                            ['completed_task_count'=>count($checklist['user_tasks']),
-                             'tasks_count'=>count($checklist['tasks']),
-                             'checklistId'=>$checklist['id']
+                            ['completed_task_count'=>count($checklist['user_completed_task']),
+                            'tasks_count'=>count($checklist['tasks']),
+                            'checklistId'=>$checklist['id']
                             ])
                             @if ($checklist['is_new'])
                                 <span class="mx-2 badge badge-info">

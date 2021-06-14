@@ -11,5 +11,6 @@ class menuComposer
         $menu = (new MenuService)->getMenu();
         $view->with('admin_menu', $menu['admin_menu']);
         $view->with('menu', $menu['user_menu']);
+        $view->with('user_task_menu',$menu['user_task_menu']);
     }
 }
