@@ -19781,5 +19781,8 @@ a.text-dark:hover {
    }
 }
 
-
+.decoration-none{
+   color: #000;
+   text-decoration: none;
+}
 /*# sourceMappingURL=coreui.min.css.map */

@@ -72,25 +72,53 @@ class ChecklistShow extends Component
     public function add_to_my_day($task_id)
     {
         $user_task = Task::where('user_id', auth()->id())
-        ->where('id', $task_id)
-        ->first();
+            ->where('id', $task_id)
+            ->first();
 
         if ($user_task) {
             if (is_null($user_task->added_to_my_day_at)) {
                 $user_task->update(['added_to_my_day_at' => now()]);
-                $this->emit('user_task_counter_change','my day');
-            }else{
-                $user_task->update(['added_to_my_day_at'=>NULL]);
-                $this->emit('user_task_counter_change','my day',-1);
+                $this->emit('user_task_counter_change', 'my day');
+            } else {
+                $user_task->update(['added_to_my_day_at' => NULL]);
+                $this->emit('user_task_counter_change', 'my day', -1);
             }
-        }else{
+        } else {
             $task = Task::find($task_id);
             $user_task = $task->replicate();
             $user_task['user_id'] = auth()->id();
             $user_task['task_id'] = $task_id;
             $user_task['added_to_my_day_at'] = now();
             $user_task->save();
-            $this->emit('user_task_counter_change','my day');
+            $this->emit('user_task_counter_change', 'my day');
+        }
+        $this->current_task = $user_task;
+    }
+
+    public function mark_as_important($task_id)
+    {
+        $user_task = Task::where('user_id', auth()->id())
+            ->where(function ($query) use ($task_id) {
+                $query->where('id', $task_id)
+                    ->orWhere('task_id', $task_id);
+            })
+            ->first();
+        if ($user_task) {
+            if ($user_task->is_important == 0) {
+                $user_task->update(['is_important' => 1]);
+                $this->emit('user_task_counter_change', 'important');
+            } else {
+                $user_task->update(['is_important' => 0]);
+                $this->emit('user_task_counter_change', 'important', -1);
+            }
+        } else {
+            $task = Task::find($task_id);
+            $user_task = $task->replicate();
+            $user_task['user_id'] = auth()->id();
+            $user_task['task_id'] = $task_id;
+            $user_task['is_important'] = 1;
+            $user_task->save();
+            $this->emit('user_task_counter_change', 'important');
         }
         $this->current_task = $user_task;
     }

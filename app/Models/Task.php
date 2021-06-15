@@ -21,7 +21,8 @@ class Task extends Model implements HasMedia
         'user_id',
         'task_id',
         'completed_at',
-        'added_to_my_day_at'
+        'added_to_my_day_at',
+        'is_important'
     ];
 
     public function registerMediaConversions(Media $media = null): void

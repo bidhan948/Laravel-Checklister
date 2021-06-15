@@ -55,7 +55,7 @@ class MenuService
                 'important' => [
                     'name' => __('important'),
                     'icon' => 'star',
-                    'tasks_count' => 0
+                    'tasks_count' => $user_tasks->where('is_important',1)->count()
                 ],
                 'planned' => [
                     'name' => __('planned'),

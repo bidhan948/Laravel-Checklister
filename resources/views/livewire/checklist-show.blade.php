@@ -13,19 +13,11 @@
                                         <a href="#" wire:click.prevent="toggle_task({{ $task->id }})"
                                             style="text-decoration: none; color: #000;">{{ $task->name }}</a>
                                     </td>
-                                    <td wire:click="toggle_task({{ $task->id }})">
-                                        @if (in_array($task->id, $opened_tasks))
-                                            <svg class="c-sidebar-nav-icon " id="icon-up-{{ $task->id }}">
-                                                <use
-                                                    xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-caret-top') }}">
-                                                </use>
-                                            </svg>
+                                    <td>
+                                        @if (optional($checklist->user_tasks()->where('task_id',$task->id)->first())->is_important)
+                                            <a wire:click.prevent="mark_as_important({{ $task->id }})" href="#" class="decoration-none">&starf;</a>                                     
                                         @else
-                                            <svg class="c-sidebar-nav-icon" id="icon-down-{{ $task->id }}">
-                                                <use
-                                                    xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-caret-bottom') }}">
-                                                </use>
-                                            </svg>
+                                            <a wire:click.prevent="mark_as_important({{ $task->id }})" href="#" class="decoration-none">&star;</a>    
                                         @endif
                                     </td>
                                 </tr>
@@ -44,7 +36,13 @@
         <div class="col-4">
             @if (!is_null($current_task))
                 <div class="card-header">
-                    <a href="" class="ml-3">&star; {{ $current_task->name }}</a>
+                    <a href="" class="ml-3">{{ $current_task->name }} 
+                        @if ($current_task->is_important)
+                        <a wire:click.prevent="mark_as_important({{ $current_task->id }})" href="#"><span class="float-right">&starf;</span></a>
+                    @else
+                        <a wire:click.prevent="mark_as_important({{ $current_task->id }})" href="#"><span class="float-right">&star;</span></a>
+                    @endif
+                    </a>
                 </div>
                 <div class="card-header">
                     @if ($current_task->added_to_my_day_at)

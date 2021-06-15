@@ -17,9 +17,15 @@
                 <li class="c-sidebar-nav-item c-sidebar-nav-dropdown c-show">
                     <a class="c-sidebar-nav-link" href="{{ route('welcome') }}">
                         <svg class="c-sidebar-nav-icon">
-                            <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-'.$user_task_menu['icon']) }}"></use>
-                        </svg> {{$user_task_menu['name']}}
-                        @livewire('user-task-counter', ['task_type'=>$key,'task_count'=>$user_task_menu['tasks_count']])
+                            <use
+                                xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-' . $user_task_menu['icon']) }}">
+                            </use>
+                        </svg> {{ $user_task_menu['name'] }}
+
+                        @livewire('user-task-counter',
+                        ['task_type'=>$key,
+                        'task_count'=>$user_task_menu['tasks_count']
+                        ])
                     </a>
                 </li>
             @endforeach
@@ -48,8 +54,8 @@
                 </li>
             @endforeach
             <li class="c-sidebar-nav-item c-sidebar-nav-dropdown"><a
-                    href="{{ route('admin.checklist_groups.create') }}" class="c-sidebar-nav-link"> New Checklist
-                    Group</a></li>
+                    href="{{ route('admin.checklist_groups.create') }}" class="c-sidebar-nav-link">
+                    {{ __('New Checklist Group') }}</a></li>
             <li class="c-sidebar-nav-title">{{ __('Pages') }}</li>
             @foreach (\App\Models\Page::all() as $page)
                 <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
@@ -116,7 +122,6 @@
                     </li>
                 @endforeach
                 </li>
-                {{-- @dd($group->checklists) --}}
             @endforeach
         @endif
     </ul>
