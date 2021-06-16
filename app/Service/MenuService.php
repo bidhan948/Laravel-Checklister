@@ -60,7 +60,7 @@ class MenuService
                 'planned' => [
                     'name' => __('planned'),
                     'icon' => 'calendar',
-                    'tasks_count' => 0
+                    'tasks_count' => $user_tasks->whereNotNull('due_date')->count()
                 ],
             ];
         }
