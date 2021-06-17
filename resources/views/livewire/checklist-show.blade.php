@@ -1,39 +1,44 @@
 <div class="col-md-12">
     <div class="row">
-        <div class="col-8">
+        <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    {{ $checklist->name }}
-                    <div class="card-body">
+                    {{ $list_name }}
+                </div>
+                <div class="card-body">
+                    @if ($list_tasks->count())
                         <table class="table">
-                            @foreach ($checklist->tasks->where('user_id', null) as $task)
+                            @foreach ($list_tasks as $task)
                                 <tr>
-                                    <td><input type="checkbox" wire:click="completeTask({{ $task->id }})" @if (in_array($task->id, $completed_task)) checked="checked" @endif /></td>
-                                    <td>
-                                        <a href="#" wire:click.prevent="toggle_task({{ $task->id }})"
-                                            style="text-decoration: none; color: #000;">{{ $task->name }}</a>
+                                    <td width="5%">
+                                        <input type="checkbox" wire:click="complete_task({{ $task->id }})" @if (in_array($task->id, $completed_tasks)) checked="checked" @endif />
                                     </td>
-                                    <td>
-                                        @if (optional(
-        $checklist->user_tasks()->where('task_id', $task->id)->first(),
-    )->is_important)
-                                            <a wire:click.prevent="mark_as_important({{ $task->id }})" href="#"
-                                                class="decoration-none">&starf;</a>
-                                        @else
-                                            <a wire:click.prevent="mark_as_important({{ $task->id }})" href="#"
-                                                class="decoration-none">&star;</a>
+                                    <td width="90%">
+                                        <a wire:click.prevent="toggle_task({{ $task->id }})"
+                                            href="#">{{ $task->name }}</a>
+                                        @if (!is_null($list_type))
+                                            <div style="font-style: italic; font-size: 11px">
+                                                {{ $task->checklist->name }}
+                                                @if (optional($user_task->where('task_id', $task->id)->first())->due_date)
+                                                    | {{ __('Due') }}
+                                                    {{ $user_task->where('task_id', $task->id)->first()->due_date->format('M d, Y') }}
+                                                @endif
+                                            </div>
                                         @endif
                                     </td>
-                                </tr>
-                                @if (in_array($task->id, $opened_tasks))
-                                    <tr>
-                                        <td></td>
-                                        <td colspan="2">{!! $task->desc !!}</td>
-                                    </tr>
-                                @endif
+                                    <td width="5%">
+                                        @if (optional($user_task->where('task_id', $task->id)->first())->is_important)
+                                            <a wire:click.prevent="mark_as_important({{ $task->id }})"
+                                                href="#">&starf;</a>
+                                        @else
+                                            <a wire:click.prevent="mark_as_important({{ $task->id }})"
+                                                href="#">&star;</a>
+                                        @endif
                             @endforeach
                         </table>
-                    </div>
+                    @else
+                        {{ __('No tasks found') }}
+                    @endif
                 </div>
             </div>
         </div>

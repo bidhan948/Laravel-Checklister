@@ -28,6 +28,10 @@ class Task extends Model implements HasMedia
 
     protected $dates = ['due_date'];
 
+    public function checklist()
+    {
+        return $this->belongsTo(Checklist::class);
+    }
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('thumb')

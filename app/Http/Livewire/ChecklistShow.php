@@ -8,23 +8,54 @@ use Livewire\Component;
 class ChecklistShow extends Component
 {
     public $checklist;
+    public $list_type;
+    public $list_name;
+    public $list_tasks;
+    public $user_task;
+
     public $opened_tasks = [];
-    public $completed_task = [];
+    public $completed_tasks = [];
     public ?Task $current_task;
+
     public $due_date_opened = FALSE;
     public $due_date;
+    // public $note_opened = FALSE;
+    // public $note;
+    // public $reminder_opened = FALSE;
+    // public $reminder_date;
+    // public $reminder_hour;
 
     public function mount()
     {
-        $this->completed_task = Task::where('checklist_id', $this->checklist->id)
-            ->where('user_id', auth()->id())
-            ->whereNotNull('completed_at')
-            ->pluck('task_id')
-            ->toArray();
         $this->current_task = NULL;
     }
+
     public function render()
     {
+        if (is_null($this->list_type)) {
+            $this->list_name = $this->checklist->name;
+            $this->list_tasks = $this->checklist->tasks->where('user_id', NULL);
+            $this->user_task = $this->checklist->user_tasks()->get();
+            $this->completed_tasks = $this->user_task->whereNotNull('completed_at')->pluck('task_id')->toArray();
+        } else {
+            switch ($this->list_type) {
+                case 'my day':
+                    $this->list_name = __('My Day');
+                    $this->user_task = Task::where('user_id', auth()->id())->whereNotNull('added_to_my_day_at')->get();
+                    break;
+                case 'important':
+                    $this->list_name = __('Important');
+                    $this->user_task = Task::where('user_id', auth()->id())->where('is_important', 1)->get();
+                    break;
+                case 'planned':
+                    $this->list_name = __('Planned');
+                    $this->user_task = Task::where('user_id', auth()->id())->whereNotNull('due_date')->orderBy('due_date')->get();
+                    break;
+            }
+            $this->list_tasks = Task::whereIn('id', $this->user_task->pluck('task_id'))->get();
+            $this->completed_tasks = $this->user_task->whereNotNull('completed_at')->pluck('task_id')->toArray();
+        }
+
         return view('livewire.checklist-show');
     }
 
@@ -35,7 +66,9 @@ class ChecklistShow extends Component
             $this->current_task = NULL;
         } else {
             $this->opened_tasks[] = $task_id;
-            $this->current_task = Task::where('user_id', auth()->id())->where('task_id', $task_id)->first();
+            $this->current_task = Task::where('user_id', auth()->id())
+                ->where('task_id', $task_id)
+                ->first();
             if (!$this->current_task) {
                 $task = Task::find($task_id);
                 $this->current_task = $task->replicate();
@@ -46,37 +79,39 @@ class ChecklistShow extends Component
         }
     }
 
-    public function completeTask($task_id)
+    public function complete_task($task_id)
     {
         $task = Task::find($task_id);
         if ($task) {
-            $user_task = Task::where('task_id', $task_id)->where('user_id', auth()->id())->first();
+            $user_task = Task::where('task_id', $task_id)
+                ->where('user_id', auth()->id())
+                ->first();
             if ($user_task) {
                 if (is_null($user_task->completed_at)) {
                     $user_task->update(['completed_at' => now()]);
-                    $this->completed_task[] = $task_id;
+                    $this->completed_tasks[] = $task_id;
                     $this->emit('task_complete', $task_id, $task->checklist_id);
                 } else {
-                    $user_task->update(['completed_at' => Null]);
+                    $user_task->update(['completed_at' => NULL]);
                     $this->emit('task_complete', $task_id, $task->checklist_id, -1);
                 }
             } else {
                 $user_task = $task->replicate();
-                $user_task->user_id = auth()->id();
-                $user_task->task_id = $task_id;
-                $user_task->completed_at = now();
+                $user_task['user_id'] = auth()->id();
+                $user_task['task_id'] = $task_id;
+                $user_task['completed_at'] = now();
                 $user_task->save();
-                $this->completed_task[] = $task_id;
+                $this->completed_tasks[] = $task_id;
                 $this->emit('task_complete', $task_id, $task->checklist_id);
             }
         }
     }
+
     public function add_to_my_day($task_id)
     {
         $user_task = Task::where('user_id', auth()->id())
             ->where('id', $task_id)
             ->first();
-
         if ($user_task) {
             if (is_null($user_task->added_to_my_day_at)) {
                 $user_task->update(['added_to_my_day_at' => now()]);

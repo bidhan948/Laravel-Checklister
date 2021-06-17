@@ -15,7 +15,7 @@
         @if (!auth()->user()->is_admin)
             @foreach ($user_task_menu as $key => $user_task_menu)
                 <li class="c-sidebar-nav-item c-sidebar-nav-dropdown c-show">
-                    <a class="c-sidebar-nav-link" href="{{ route('welcome') }}">
+                    <a class="c-sidebar-nav-link" href="{{ route('users.tasklist',$key) }}">
                         <svg class="c-sidebar-nav-icon">
                             <use
                                 xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-' . $user_task_menu['icon']) }}">

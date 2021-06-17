@@ -12,6 +12,7 @@ Route::group(['middleware' => ['auth','save_last_action']], function () {
     Route::get('/welcome', [App\Http\Controllers\pageController::class, 'welcome'])->name(('welcome'));
     Route::get('/consultation', [App\Http\Controllers\pageController::class, 'consultation'])->name(('consultation'));
     Route::get('checklist/{checklist}', [App\Http\Controllers\User\checklistController::class, 'show'])->name(('users.checklist.show'));
+    Route::get('tasklist/{list_type}', [App\Http\Controllers\User\checklistController::class, 'tasklist'])->name(('users.tasklist'));
     // admin authentication
     Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'is_admin'], function () {
         Route::resource('pages', App\Http\Controllers\Admin\PageController::class)->only(['edit','update']);
