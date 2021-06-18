@@ -98,7 +98,25 @@
                     @endif
                 </div>
                 <div class="card-header">
-                    &#x270D; <a href="" class="ml-3">{{ __('Note') }}</a>
+                    @if ($current_task->note)
+                        <a wire:click.prevent="toggle_note" href="#">{{ __('Note') }}</a>
+                        @if (!$note_opened)
+                            <p>
+                                {{ $current_task->note }}
+                                <br />
+                                <a wire:click.prevent="toggle_note" href="#">{{ __('Edit') }}</a>
+                            </p>
+                        @endif
+                    @else
+                        <a wire:click.prevent="toggle_note" href="#">{{ __('Note') }}</a>
+                    @endif
+                    @if ($note_opened)
+                        <div class="mt-4">
+                            <textarea wire:model="note" class="form-control" rows="5"></textarea>
+                            <button wire:click="save_note"
+                                class="btn btn-sm btn-primary mt-2">{{ __('Save Note') }}</button>
+                        </div>
+                    @endif
                 </div>
             @endif
         </div>

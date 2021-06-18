@@ -19,11 +19,8 @@ class ChecklistShow extends Component
 
     public $due_date_opened = FALSE;
     public $due_date;
-    // public $note_opened = FALSE;
-    // public $note;
-    // public $reminder_opened = FALSE;
-    // public $reminder_date;
-    // public $reminder_hour;
+    public $note_opened = FALSE;
+    public $note;
 
     public function mount()
     {
@@ -192,7 +189,16 @@ class ChecklistShow extends Component
         }
         $this->current_task = $user_task;
     }
-
+    public function toggle_note()
+    {
+        $this->note_opened = !$this->note_opened;
+        $this->note = $this->current_task->note;
+    }
+    public function save_note()
+    {
+        $this->current_task->update(['note'=>$this->note]);
+        $this->note_opened = FALSE;
+    }
     public function updatedDueDate($value)
     {
         $this->set_due_date($this->current_task->id, $value);
