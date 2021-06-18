@@ -24,14 +24,19 @@ class Task extends Model implements HasMedia
         'added_to_my_day_at',
         'is_important',
         'due_date',
-        'note'
+        'note',
+        'reminder_at'
     ];
 
-    protected $dates = ['due_date'];
+    protected $dates = ['due_date', 'reminder_at'];
 
     public function checklist()
     {
         return $this->belongsTo(Checklist::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
     public function registerMediaConversions(Media $media = null): void
     {
